@@ -15,6 +15,8 @@ let snakeTrail = [];
 let appleX = 15;
 let appleY = 15;
 
+let gameStarted = false;
+let gameOver = false;
 let gameLoop;
 
 let canvas;
@@ -46,7 +48,13 @@ function game(){
 
   detectEatApple();
 
+  detectEatSnake();
+
   updateSnakeTrail();
+
+  if(gameOver){
+   clearInterval(gameLoop) 
+  }
 
 }
 
@@ -89,6 +97,16 @@ function detectEatApple(){
   }
 }
 
+function detectEatSnake(){
+  if(gameStarted) {
+    for(var i = 0 ; i < snakeTrail.length; i++){
+      if(snakeTrail[i].x == snakeX && snakeTrail[i].y == snakeY) {
+        gameOver = true;
+      }
+    }
+ }
+}
+
 function newApple(){
   appleX = Math.floor(Math.random() * tilesX);
   appleY = Math.floor(Math.random() * tilesY);
@@ -110,6 +128,8 @@ function limitToPlayground(){
 }
 
 function onKeyDown(evt){  
+  gameStarted=true;
+
   if(evt.code === "ArrowLeft") {
     snakeXv=-1;
     snakeYv=0;
