@@ -24,7 +24,7 @@ window.onload = function() {
 
   ctx = canvas.getContext("2d");
 
-  snakeXv = 1;
+  document.addEventListener("keydown", onKeyDown);
 
   gameLoop = setInterval(game, 1000/15);
 }
@@ -62,4 +62,23 @@ function drawApple(){
 function moveSnake(){
   snakeX += snakeXv;
   snakeY += snakeYv;
+}
+
+function onKeyDown(evt){  
+  if(evt.code === "ArrowLeft") {
+    snakeXv=-1;
+    snakeYv=0;
+  }
+  if(evt.code === "ArrowUp") {
+    snakeXv=0;
+    snakeYv=-1;
+  }
+  if(evt.code === "ArrowRight") {
+    snakeXv=1;
+    snakeYv=0;
+  }
+  if(evt.code === "ArrowDown") {
+    snakeXv=0;
+    snakeYv=1;
+  }
 }
