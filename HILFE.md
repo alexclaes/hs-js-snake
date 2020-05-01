@@ -61,7 +61,7 @@ else {
 
 #### For-Schleifen:
 ```javascript
-for(let i=0; 1 < 5; i++){
+for(let i=0; i < 5; i++){
   // ... hier Code in der For-Schleife
 }
 ```
@@ -197,7 +197,7 @@ function onKeyDown(evt){
 Math.random()
 ````
 
-#### Ein Zahl runden (Nachkommstellen entfernen)
+#### Eine Zahl runden (Nachkommastellen entfernen)
 ```javascript
 Math.floor();
 ```
