@@ -3,6 +3,11 @@ let tileSize = 20;
 let tilesX = 30;
 let tilesY = 20;
 
+let snakeX = 10;
+let snakeY = 10;
+
+let gameLoop;
+
 let canvas;
 let ctx;
 
@@ -13,14 +18,24 @@ window.onload = function() {
 
   ctx = canvas.getContext("2d");
 
+  gameLoop = setInterval(game, 1000/15);
+}
+
+function game(){
+
   drawBackground();
 
-  drawTile(1, 1, "Yellow");
+  drawSnake();
+
 }
 
 function drawBackground() {
   ctx.fillStyle = "LightSlateGray";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+function drawSnake(){
+  drawTile(snakeX, snakeY, "Lime");
 }
 
 function drawTile(x, y, color){
