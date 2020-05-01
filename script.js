@@ -7,7 +7,9 @@ let snakeX = 10;
 let snakeY = 10;
 
 let snakeXv = 0;
-let snakeYv = 0 ;
+let snakeYv = 0;
+
+let snakeTrail = [];
 
 let appleX = 15;
 let appleY = 15;
@@ -39,6 +41,8 @@ function game(){
 
   drawSnake();
 
+  updateSnakeTrail();
+
 }
 
 function drawBackground() {
@@ -47,7 +51,9 @@ function drawBackground() {
 }
 
 function drawSnake(){
-  drawTile(snakeX, snakeY, "Lime");
+  for(var i = 0 ; i < snakeTrail.length; i++){
+    drawTile(snakeTrail[i].x, snakeTrail[i].y, "lime")
+  }
 }
 
 function drawTile(x, y, color){
@@ -62,6 +68,10 @@ function drawApple(){
 function moveSnake(){
   snakeX += snakeXv;
   snakeY += snakeYv;
+}
+
+function updateSnakeTrail(){
+  snakeTrail.push({x:snakeX, y:snakeY});
 }
 
 function onKeyDown(evt){  
