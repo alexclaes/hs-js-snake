@@ -6,6 +6,9 @@ let tilesY = 20;
 let snakeX = 10;
 let snakeY = 10;
 
+let appleX = 15;
+let appleY = 15;
+
 let gameLoop;
 
 let canvas;
@@ -25,6 +28,8 @@ function game(){
 
   drawBackground();
 
+  drawApple();
+
   drawSnake();
 
 }
@@ -41,4 +46,8 @@ function drawSnake(){
 function drawTile(x, y, color){
   ctx.fillStyle = color;
   ctx.fillRect(x * tileSize, y * tileSize, tileSize - 2, tileSize - 2);
+}
+
+function drawApple(){
+  drawTile(appleX, appleY, "Red")
 }
