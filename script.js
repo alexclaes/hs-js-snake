@@ -9,6 +9,7 @@ let snakeY = 10;
 let snakeXv = 0;
 let snakeYv = 0;
 
+let snakeLength = 5;
 let snakeTrail = [];
 
 let appleX = 15;
@@ -72,6 +73,9 @@ function moveSnake(){
 
 function updateSnakeTrail(){
   snakeTrail.push({x:snakeX, y:snakeY});
+  while(snakeTrail.length > snakeLength) {
+    snakeTrail.shift();
+  }
 }
 
 function onKeyDown(evt){  
