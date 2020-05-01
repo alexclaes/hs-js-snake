@@ -44,6 +44,8 @@ function game(){
 
   drawSnake();
 
+  detectEatApple();
+
   updateSnakeTrail();
 
 }
@@ -78,6 +80,18 @@ function updateSnakeTrail(){
   while(snakeTrail.length > snakeLength) {
     snakeTrail.shift();
   }
+}
+
+function detectEatApple(){
+  if(appleX == snakeX && appleY == snakeY) {
+    snakeLength++;
+    newApple();
+  }
+}
+
+function newApple(){
+  appleX = Math.floor(Math.random() * tilesX);
+  appleY = Math.floor(Math.random() * tilesY);
 }
 
 function limitToPlayground(){
