@@ -19,6 +19,9 @@ let gameStarted = false;
 let gameOver = false;
 let gameLoop;
 
+let gameScreen;
+let gameOverScreen;
+
 let canvas;
 let ctx;
 
@@ -29,9 +32,16 @@ window.onload = function() {
 
   ctx = canvas.getContext("2d");
 
+  gameScreen = document.getElementById("game-screen");
+  gameOverScreen = document.getElementById("game-over-screen");
+  let restartButton = document.getElementById("restart");
+  restartButton.addEventListener("click", restart);
+
   document.addEventListener("keydown", onKeyDown);
 
-  gameLoop = setInterval(game, 1000/15);
+  showGameScreen();
+
+  startGameLoop();
 }
 
 function game(){
@@ -53,7 +63,8 @@ function game(){
   updateSnakeTrail();
 
   if(gameOver){
-   clearInterval(gameLoop) 
+   clearInterval(gameLoop);
+   showGameOverScreen();
   }
 
 }
@@ -125,6 +136,41 @@ function limitToPlayground(){
   if(snakeY > tilesY-1){
     snakeY = 0;
   }
+}
+
+function showGameOverScreen(){
+  gameScreen.style.display = "none"
+  gameOverScreen.style.display = "block";
+}
+
+function showGameScreen(){
+  gameScreen.style.display = "block"
+  gameOverScreen.style.display = "none";
+}
+
+function startGameLoop() {
+  gameLoop = setInterval(game, 1000/15);
+}
+
+function restart(){
+  snakeLength = 5;
+  snakeTrail = [];
+  
+  snakeX = 10;
+  snakeY = 10;
+
+  snakeXv = 0;
+  snakeYv = 0;
+
+  appleX = 15;
+  appleY = 15;
+
+  gameStarted = false;
+  gameOver = false;
+
+  showGameScreen();
+
+  startGameLoop();
 }
 
 function onKeyDown(evt){  
