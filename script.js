@@ -19,6 +19,15 @@ let gameStarted = false;
 let gameOver = false;
 let gameLoop;
 
+let score = 0;
+
+let fps = 15;
+
+let level = 0;
+let levelColorsBackground = ["LightSlateGray", "SeaGreen", "Aquamarine", "Black", "Crimson"]
+let levelColorsSnake = ["Lime", "DeepSkyBlue", "Purple", "White", "Magenta"]
+let levelColorsApple = ["Red", "LightSalmon", "DeepPink", "White", "Yellow"]
+
 let canvas;
 let ctx;
 
@@ -31,7 +40,7 @@ window.onload = function() {
 
   document.addEventListener("keydown", onKeyDown);
 
-  gameLoop = setInterval(game, 1000/15);
+  gameLoop = setTimeout(game, 1000/fps);
 }
 
 function game(){
@@ -52,20 +61,31 @@ function game(){
 
   updateSnakeTrail();
 
-  if(gameOver){
-   clearInterval(gameLoop) 
+  if(!gameOver){
+   gameLoop = setTimeout(game, 1000/fps);
   }
 
 }
 
+function getLevelColor(colors){
+  let index;
+  if(level < colors.length) {
+    index = level
+  } 
+  else {
+    index = colors.length - 1;
+  }
+  return colors[index];
+}
+
 function drawBackground() {
-  ctx.fillStyle = "LightSlateGray";
+  ctx.fillStyle = getLevelColor(levelColorsBackground);
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 function drawSnake(){
   for(var i = 0 ; i < snakeTrail.length; i++){
-    drawTile(snakeTrail[i].x, snakeTrail[i].y, "lime")
+    drawTile(snakeTrail[i].x, snakeTrail[i].y, getLevelColor(levelColorsSnake))
   }
 }
 
@@ -75,7 +95,7 @@ function drawTile(x, y, color){
 }
 
 function drawApple(){
-  drawTile(appleX, appleY, "Red")
+  drawTile(appleX, appleY, getLevelColor(levelColorsApple))
 }
 
 function moveSnake(){
@@ -93,6 +113,11 @@ function updateSnakeTrail(){
 function detectEatApple(){
   if(appleX == snakeX && appleY == snakeY) {
     snakeLength++;
+    score++;
+    if(score % 2 == 0){
+      level++;
+      fps = 15 + level * 5;
+    }
     newApple();
   }
 }
