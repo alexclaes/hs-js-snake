@@ -113,17 +113,13 @@ function newApple(){
 }
 
 function limitToPlayground(){
-  if(snakeX < 0){
-    snakeX = tilesX-1;
-  }
-  if(snakeX > tilesX-1){
-    snakeX = 0;
-  }
-  if(snakeY < 0){
-    snakeY = tilesY-1;
-  }
-  if(snakeY > tilesY-1){
-    snakeY = 0;
+  if(
+    snakeX < 0 || 
+    snakeX > tilesX-1 ||
+    snakeY < 0 ||
+    snakeY > tilesY-1
+  ) {
+    gameOver = true;
   }
 }
 
