@@ -19,6 +19,9 @@ let gameStarted = false;
 let gameOver = false;
 let gameLoop;
 
+let score = 0;
+let scoreDisplay = document.getElementById("score-display");
+
 let canvas;
 let ctx;
 
@@ -93,6 +96,8 @@ function updateSnakeTrail(){
 function detectEatApple(){
   if(appleX == snakeX && appleY == snakeY) {
     snakeLength++;
+    score++;
+    updateScoreDisplay();
     newApple();
   }
 }
@@ -125,6 +130,10 @@ function limitToPlayground(){
   if(snakeY > tilesY-1){
     snakeY = 0;
   }
+}
+
+function updateScoreDisplay(){
+  scoreDisplay.innerText = score;
 }
 
 function onKeyDown(evt){  

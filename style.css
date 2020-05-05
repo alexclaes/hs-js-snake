@@ -1,0 +1,14 @@
+body {
+  font-family: 'Modak', cursive;
+}
+
+#score {
+  width: 250px;
+  text-align: center;
+  font-size: 60px;
+}
+#score-display {
+  display: block;
+  font-size: 100px;
+  line-height: 70%;
+}
