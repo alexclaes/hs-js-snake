@@ -3,8 +3,8 @@ let tileSize = 20;
 let tilesX = 30;
 let tilesY = 20;
 
-let snakeX = 10;
-let snakeY = 10;
+let snakeX = Math.floor(Math.random() * tilesX);
+let snakeY = Math.floor(Math.random() * tilesY);
 
 let snakeXv = 0;
 let snakeYv = 0;
@@ -12,8 +12,8 @@ let snakeYv = 0;
 let snakeLength = 5;
 let snakeTrail = [];
 
-let appleX = 15;
-let appleY = 15;
+let appleX = Math.floor(Math.random() * tilesX);
+let appleY = Math.floor(Math.random() * tilesY);
 
 let gameStarted = false;
 let gameOver = false;
