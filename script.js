@@ -65,13 +65,60 @@ function drawBackground() {
 
 function drawSnake(){
   for(var i = 0 ; i < snakeTrail.length; i++){
-    drawTile(snakeTrail[i].x, snakeTrail[i].y, "lime")
+    if(i == snakeTrail.length-1) {
+      drawStripedTile(snakeTrail[i].x, snakeTrail[i].y, "lime", "yellow")
+    }
+    else {
+      if(i % 2 == 0) {
+        drawRandomColorTile(snakeTrail[i].x, snakeTrail[i].y)
+      }
+      else {
+        drawPatternTile(snakeTrail[i].x, snakeTrail[i].y, "Magenta", "Cyan")
+      }
+    }
   }
 }
 
 function drawTile(x, y, color){
   ctx.fillStyle = color;
   ctx.fillRect(x * tileSize, y * tileSize, tileSize - 2, tileSize - 2);
+}
+
+function drawRandomColorTile(x, y){
+  let colors = ["GreenYellow", "DarkOrchid", "DarkOrange", "DeepPink", "Crimson", "Gold", "DodgerBlue"]
+  let randomIndex = Math.floor(Math.random() * colors.length);
+  let color = colors[randomIndex];
+  ctx.fillStyle = color;
+  ctx.fillRect(x * tileSize, y * tileSize, tileSize - 2, tileSize - 2);
+}
+
+function drawPatternTile(x, y, color1, color2){
+  let patternSize = (tileSize - 2) / 2;
+
+  ctx.fillStyle = color1;
+  // top left
+  ctx.fillRect(x * tileSize , y * tileSize, patternSize, patternSize);
+  // bottom right
+  ctx.fillRect(x * tileSize + patternSize , y * tileSize + patternSize, patternSize, patternSize);
+
+  ctx.fillStyle = color2;
+  // top right
+  ctx.fillRect(x * tileSize + patternSize, y * tileSize, patternSize, patternSize);
+  // bottom left
+  ctx.fillRect(x * tileSize , y * tileSize + patternSize, patternSize, patternSize);
+}
+
+function drawStripedTile(x, y, color1, color2){
+  let stripeWidth = 3;
+  for(let i = 0; i < tileSize - stripeWidth - 1 ; i += stripeWidth){
+    if( i == 0 || i == 6 || i == 12 ){
+      ctx.fillStyle = color1;
+    }
+    else {
+      ctx.fillStyle = color2;
+    }
+    ctx.fillRect(x * tileSize + i , y * tileSize, stripeWidth, tileSize - 2);
+  }
 }
 
 function drawApple(){
