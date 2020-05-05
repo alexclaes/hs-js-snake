@@ -15,12 +15,17 @@ let snakeTrail = [];
 let appleX = 15;
 let appleY = 15;
 
+let appleTypes = ["normal", "extreme", "heal"];
+let appleType = appleTypes[0]
+
 let gameStarted = false;
 let gameOver = false;
 let gameLoop;
 
 let canvas;
 let ctx;
+
+let frames = 0;
 
 window.onload = function() {
   canvas=document.getElementById("canvas");
@@ -35,6 +40,8 @@ window.onload = function() {
 }
 
 function game(){
+
+  frames++;
 
   moveSnake();
 
@@ -75,7 +82,19 @@ function drawTile(x, y, color){
 }
 
 function drawApple(){
-  drawTile(appleX, appleY, "Red")
+  let color = "Red";
+  if(appleType == appleTypes[1]) {
+    if( frames % 2 == 0 ){
+      color = "Yellow"
+    }
+    else {
+      color = "Magenta"
+    }
+  }
+  if(appleType == appleTypes[2]) {
+    color = "White";
+  }
+  drawTile(appleX, appleY, color)
 }
 
 function moveSnake(){
@@ -92,7 +111,17 @@ function updateSnakeTrail(){
 
 function detectEatApple(){
   if(appleX == snakeX && appleY == snakeY) {
-    snakeLength++;
+    if(appleType == appleTypes[0]){
+      snakeLength++;
+    }
+    else if(appleType == appleTypes[1]){
+      snakeLength += 3;
+    }
+    else if(appleType == appleTypes[2]){
+      if(snakeLength >= 3){
+        snakeLength -= 1;
+      }
+    }
     newApple();
   }
 }
@@ -108,6 +137,9 @@ function detectEatSnake(){
 }
 
 function newApple(){
+  let randomIndex = Math.floor(Math.random() * appleTypes.length);
+  appleType = appleTypes[randomIndex];
+  console.log(appleType);
   appleX = Math.floor(Math.random() * tilesX);
   appleY = Math.floor(Math.random() * tilesY);
 }
